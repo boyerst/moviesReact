@@ -16,17 +16,20 @@ export default class NewMovieForm extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.createMovie(this.state)
   }
 
 
+
   render() {
-    console.log("this.state in render() in NewMovieForm");
-    console.log(this.state);
     return (
       <Segment>
         <h4>Add new movie:</h4>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Label>Title:</Label>
           <Form.Input 
             type="text"
@@ -55,7 +58,5 @@ export default class NewMovieForm extends Component {
         </Form>
       </Segment>
     )
-
   }
-
 } 

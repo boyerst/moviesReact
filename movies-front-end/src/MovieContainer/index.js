@@ -37,13 +37,39 @@ export default class MovieContainer extends Component {
     }
   }
 
+
+  createMovie = async (movieToAdd) => {
+    console.log("here is the movie you are trying to add");
+    console.log(movieToAdd);
+    try {
+      const url = process.env.REACT_APP_API_URL + "/api/v1/movies/"
+      const createMovieResponse = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movieToAdd)        
+      })
+      console.log("createMovieResponse", createMovieResponse);
+      const createMovieJson = await createMovieResponse.json()
+      console.log("here is what we got back after trying to add a movie:");
+      console.log(createMovieJson);
+    } catch(err) {
+      console.error("Error adding movie")
+      console.error(err)
+    }
+
+  }
+
+  
+
   render() {
     console.log("here is this.state in render() in MovieContainer")
     console.log(this.state)
     return(
       <React.Fragment>
         <h2>Movies</h2>
-        <NewMovieForm />
+        <NewMovieForm createMovie={this.createMovie}/>
         <MovieList movies={this.state.movies} />
       </React.Fragment>
     )
