@@ -7,9 +7,9 @@ export default function MovieList(props) {
   console.log(props);
   const movies = props.movies.map(movie => {
     return(
-           
+
       <Card key={movie.id} color={"teal"}>
-        <Card.Content class="ui centered cards">        
+        <Card.Content>        
           <Card.Header>
             {movie.title}
           </Card.Header>

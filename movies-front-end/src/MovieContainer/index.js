@@ -26,7 +26,7 @@ export default class MovieContainer extends Component {
       console.log("here is the Response from the fetch call:");
       console.log(moviesResponse);
       const moviesJson = await moviesResponse.json()
-      console.log("here is the data we got in getDogs in MovieContainer:");
+      console.log("here is the data we got in getMovies in MovieContainer:");
       console.log(moviesJson);
 
       this.setState({
