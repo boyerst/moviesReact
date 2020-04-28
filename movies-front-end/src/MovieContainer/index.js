@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MovieList from '../MovieList'
-
+import NewMovieForm from '../NewMovieForm'
 
 export default class MovieContainer extends Component {
   constructor(props) {
@@ -43,6 +43,7 @@ export default class MovieContainer extends Component {
     return(
       <React.Fragment>
         <h2>Movies</h2>
+        <NewMovieForm />
         <MovieList movies={this.state.movies} />
       </React.Fragment>
     )
