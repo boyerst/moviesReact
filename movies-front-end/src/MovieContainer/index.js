@@ -27,12 +27,18 @@ export default class MovieContainer extends Component {
       const moviesJson = await moviesResponse.json()
       console.log("here is the data we got in getDogs in MovieContainer:");
       console.log(moviesJson);
+
+      this.setState({
+        movies: moviesJson
+      })
     } catch(err) {
       console.log("Error getting movie data", err)
     }
   }
 
   render() {
+    console.log("here is this.state in render() in MovieContainer")
+    console.log(this.state)
     return(
       <h2>Movie Container</h2>
     )
