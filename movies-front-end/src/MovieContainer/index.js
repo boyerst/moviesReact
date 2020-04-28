@@ -42,7 +42,7 @@ export default class MovieContainer extends Component {
     console.log(this.state)
     return(
       <React.Fragment>
-        <h2>Movie Container</h2>
+        <h2>Movies</h2>
         <MovieList movies={this.state.movies} />
       </React.Fragment>
     )
