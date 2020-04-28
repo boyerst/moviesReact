@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 
 export default function MovieList(props) {
 
@@ -23,6 +23,22 @@ export default function MovieList(props) {
             {movie.title} is a {movie.genre} movie that was released in {movie.release_year}
           </Card.Description>
         </Card.Content>
+      <Card.Content textAlign={"center"}> 
+        <Button 
+          basic 
+          color='red'
+          onClick={ () => props.deleteMovie(movie.id) }
+        >
+          Delete {movie.title}
+        </Button>
+        <Button 
+          basic 
+          color='green'
+          onClick={ () => props.editMovie(movie.id) }
+        >
+          Edit {movie.title}
+        </Button>
+      </Card.Content>
       </Card>
     )
   })

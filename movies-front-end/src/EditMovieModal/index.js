@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { Form, Button, Label, Segment } from 'semantic-ui-react'
 
-export default class NewMovieForm extends Component {
+export default class EditMovieModal extends Component {
   constructor(props) {
     super(props)
 
+    console.log("props in constructor in EditMovieModal");
+    console.log(props);
+
     this.state = {
-      title: '',
-      genre: '',
-      release_year: ''
+      title: props.movieToEdit.title,
+      genre: props.movieToEdit.genre,
+      release_year: props.movieToEdit.release_year
     }
   }
 
@@ -20,20 +23,13 @@ export default class NewMovieForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.createMovie(this.state)
-    this.state = ({
-      title: '',
-      genre: '',
-      release_year: ''
-    })
+    this.props.updateMovie(this.state)
   }
-
-
 
   render() {
     return (
-      <Segment>
-        <h4>Add new movie:</h4>
+    <Segment>
+        <h4>Edit new movie:</h4>
         <Form onSubmit={this.handleSubmit}>
           <Label>Title:</Label>
           <Form.Input 
@@ -59,9 +55,11 @@ export default class NewMovieForm extends Component {
             placeholder="Enter movie release year"
             onChange={this.handleChange}            
           />
-          <Button type="Submit">Add New Movie</Button>
+          <Button type="Submit">Update Movie</Button>
         </Form>
       </Segment>
     )
   }
 } 
+
+ 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MovieList from '../MovieList'
 import NewMovieForm from '../NewMovieForm'
+import EditMovieModal from '../EditMovieModal'
 
 export default class MovieContainer extends Component {
   constructor(props) {
@@ -8,7 +9,8 @@ export default class MovieContainer extends Component {
     super(props)
 
     this.state = {
-      movies: []
+      movies: [],
+      idOfMovieToEdit: -1
     }
   }
 
@@ -37,6 +39,34 @@ export default class MovieContainer extends Component {
     }
   }
 
+   deleteMovie = async (idOfMovieToDelete) => {
+    const url = process.env.REACT_APP_API_URL + "/api/v1/movies/" + idOfMovieToDelete
+    try {
+    
+      const deleteMovieResponse = await fetch(url, {
+        method: 'DELETE'
+      })
+      console.log("deleteMovieResponse", deleteMovieResponse)
+      const deleteMovieJson = await deleteMovieResponse.json()
+      console.log("deleteMovieJson", deleteMovieJson)
+      this.setState({
+        movies: this.state.movies.filter(movie => movie.id != idOfMovieToDelete)
+      })
+
+    } catch (err) {
+      console.log("error deleting the movie")
+      console.log(err)
+    }
+  }
+
+
+  editMovie = (idOfMovieToEdit) => {
+    console.log("you are trying to edit movie with id: ", idOfMovieToEdit)
+    this.setState({
+      idOfMovieToEdit: idOfMovieToEdit
+    })
+  }
+
 
   createMovie = async (movieToAdd) => {
     console.log("here is the movie you are trying to add");
@@ -54,6 +84,13 @@ export default class MovieContainer extends Component {
       const createMovieJson = await createMovieResponse.json()
       console.log("here is what we got back after trying to add a movie:");
       console.log(createMovieJson);
+
+      if(createMovieResponse.status === 201) {
+        const movies = this.state.movies
+        movies.push(createMovieJson.data)
+        this.setState( {movies: movies} )
+      }
+
     } catch(err) {
       console.error("Error adding movie")
       console.error(err)
@@ -70,7 +107,19 @@ export default class MovieContainer extends Component {
       <React.Fragment>
         <h2>Movies</h2>
         <NewMovieForm createMovie={this.createMovie}/>
-        <MovieList movies={this.state.movies} />
+        <MovieList
+          movies={this.state.movies} 
+          deleteMovie={this.deleteMovie}
+          editMovie={this.editMovie}
+        />
+        { 
+          this.state.idOfMovieToEdit !== -1 
+          && 
+          <EditMovieModal 
+            movieToEdit={this.state.movies.find((movie) => movie.id === this.state.idOfMovieToEdit)}
+            updateMovie={this.updateMovie}
+          /> 
+        }
       </React.Fragment>
     )
   }
