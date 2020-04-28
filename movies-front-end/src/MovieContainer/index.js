@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import MovieList from '../MovieList'
 
 
 export default class MovieContainer extends Component {
@@ -40,7 +41,10 @@ export default class MovieContainer extends Component {
     console.log("here is this.state in render() in MovieContainer")
     console.log(this.state)
     return(
-      <h2>Movie Container</h2>
+      <React.Fragment>
+        <h2>Movie Container</h2>
+        <MovieList />
+      </React.Fragment>
     )
   }
 
