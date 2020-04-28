@@ -22,15 +22,8 @@ export default class MovieContainer extends Component {
   getMovies = async () => {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/movies/"
-      console.log("about to fetch data from:");
-      console.log(url);
       const moviesResponse = await fetch(url)
-      console.log("here is the Response from the fetch call:");
-      console.log(moviesResponse);
       const moviesJson = await moviesResponse.json()
-      console.log("here is the data we got in getMovies in MovieContainer:");
-      console.log(moviesJson);
-
       this.setState({
         movies: moviesJson
       })
@@ -46,9 +39,7 @@ export default class MovieContainer extends Component {
       const deleteMovieResponse = await fetch(url, {
         method: 'DELETE'
       })
-      console.log("deleteMovieResponse", deleteMovieResponse)
       const deleteMovieJson = await deleteMovieResponse.json()
-      console.log("deleteMovieJson", deleteMovieJson)
       this.setState({
         movies: this.state.movies.filter(movie => movie.id != idOfMovieToDelete)
       })
@@ -61,7 +52,6 @@ export default class MovieContainer extends Component {
 
 
   editMovie = (idOfMovieToEdit) => {
-    console.log("you are trying to edit movie with id: ", idOfMovieToEdit)
     this.setState({
       idOfMovieToEdit: idOfMovieToEdit
     })
@@ -69,8 +59,6 @@ export default class MovieContainer extends Component {
 
 
   createMovie = async (movieToAdd) => {
-    console.log("here is the movie you are trying to add");
-    console.log(movieToAdd);
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/movies/"
       const createMovieResponse = await fetch(url, {
@@ -80,11 +68,7 @@ export default class MovieContainer extends Component {
         },
         body: JSON.stringify(movieToAdd)        
       })
-      console.log("createMovieResponse", createMovieResponse);
       const createMovieJson = await createMovieResponse.json()
-      console.log("here is what we got back after trying to add a movie:");
-      console.log(createMovieJson);
-
       if(createMovieResponse.status === 201) {
         const movies = this.state.movies
         movies.push(createMovieJson.data)
@@ -98,10 +82,33 @@ export default class MovieContainer extends Component {
 
   }
 
-  
+  updateMovie = async (updatedMovieInfo) => {
+    const url = process.env.REACT_APP_API_URL + "/api/v1/movies/" + this.state.idOfMovieToEdit
+    try {
+    const updateMovieResponse = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(updatedMovieInfo),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const updateMovieJson = await updateMovieResponse.json()
+    if(updateMovieResponse.status == 200){
+      const movies = this.state.movies
+      const indexOfMovieBeingUpdated = movies.findIndex(movie => movie.id == this.state.idOfMovieToEdit)
+      movies[indexOfMovieBeingUpdated] = updateMovieJson.data
+      this.setState({
+        movies: movies,
+        idOfMovieToEdit: -1
+      })
+    }
+    } catch (err) {
+      console.log("error updating info")
+      console.log(err)
+    }
+  }
 
   render() {
-    console.log("here is this.state in render() in MovieContainer")
     console.log(this.state)
     return(
       <React.Fragment>
