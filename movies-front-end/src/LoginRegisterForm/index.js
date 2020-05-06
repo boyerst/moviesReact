@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Button, Label } from 'semantic-ui-react'
+import { Form, Button, Label, Message } from 'semantic-ui-react'
+
 
 export default class LoginRegisterForm extends Component {
 
@@ -9,21 +10,34 @@ export default class LoginRegisterForm extends Component {
     this.state = {
       email: '',
       password: '',
-      username: ''
+      username: '',
+      action: 'Login'
+    }
+  }
+
+  changeForm = () => {
+    if(this.state.action==="Login"){
+      this.setState({action: "Register"})
+    } else {
+      this.setState({action: "Login"})
     }
   }
 
   render() {
     return (
       <React.Fragment>
-        <Form>
-          <Label>Username:</Label>
-          <Form.Input 
-            type="text"
-            name="username"
-            placeholder="Enter a username"
-            value={this.state.username}
-          />
+          <Form onSubmit={this.handleSubmit}>
+            {this.state.action==="Register"
+            &&
+            
+              <Form.Input
+                name="username"
+                type="text"
+                placeholder="Username"
+                value={this.state.Username}
+                onChange={this.handleChange}
+              />
+            }
           <Label>Email:</Label>
           <Form.Input 
             type="email"
@@ -40,6 +54,19 @@ export default class LoginRegisterForm extends Component {
           />
           <Button type="Submit">Log In</Button>
         </Form>
+        <Message>
+        {
+          this.state.action==="Login"
+          ?
+          <Message>
+          Need an account? <span className="link" onClick={this.changeForm}>Register</span>
+          </Message> 
+          :
+          <Message>
+          Already registered? <span className="link" onClick={this.changeForm}>Log In</span>
+          </Message>
+        }
+        </Message>
       </React.Fragment>      
     )
   }
