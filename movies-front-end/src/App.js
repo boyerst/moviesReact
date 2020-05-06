@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import MovieContainer from './MovieContainer'
+import LoginRegisterForm from './LoginRegisterForm'
+
 
 export default class App extends Component {
   // console.log(process.env)
@@ -49,15 +51,19 @@ export default class App extends Component {
 
 
 
-   render() {
+
+  render() {
     return (
       <div className="App">
         {
           this.state.loggedIn
           ?
-          <MovieContainer />
+          <React.Fragment>
+            <MovieContainer />
+          </React.Fragment>
           :
-          "Not logged in"
+       
+          <LoginRegisterForm/>
         }
       </div>
     );    
