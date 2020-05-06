@@ -21,7 +21,7 @@ export default class NewMovieForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.createMovie(this.state)
-    this.state = ({
+    this.setState = ({
       title: '',
       genre: '',
       release_year: ''

@@ -5,8 +5,6 @@ export default class EditMovieModal extends Component {
   constructor(props) {
     super(props)
 
-    // console.log("props in constructor in EditMovieModal");
-    // console.log(props);
 
     this.state = {
       title: props.movieToEdit.title,

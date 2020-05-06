@@ -22,7 +22,12 @@ export default class MovieContainer extends Component {
   getMovies = async () => {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/movies/"
-      const moviesResponse = await fetch(url)
+      console.log("about to fetch data from:");
+      console.log(url);
+      const moviesResponse = await fetch(url, {
+        credentials: 'include'
+      })
+      console.log(moviesResponse)
       const moviesJson = await moviesResponse.json()
       this.setState({
         movies: moviesJson
@@ -31,6 +36,9 @@ export default class MovieContainer extends Component {
       console.log("Error getting movie data", err)
     }
   }
+
+
+
 
    deleteMovie = async (idOfMovieToDelete) => {
     const url = process.env.REACT_APP_API_URL + "/api/v1/movies/" + idOfMovieToDelete
