@@ -22,6 +22,18 @@ export default class LoginRegisterForm extends Component {
       this.setState({action: "Login"})
     }
   }
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(`You are trying to ${this.state.action.toLowerCase()} with the following credentials`)
+    console.log(this.state);
+
+  }
 
   render() {
     return (
@@ -29,12 +41,11 @@ export default class LoginRegisterForm extends Component {
           <Form onSubmit={this.handleSubmit}>
             {this.state.action==="Register"
             &&
-            
               <Form.Input
                 name="username"
                 type="text"
                 placeholder="Username"
-                value={this.state.Username}
+                value={this.state.username}
                 onChange={this.handleChange}
               />
             }
@@ -44,13 +55,15 @@ export default class LoginRegisterForm extends Component {
             name="email"
             placeholder="Enter a email"
             value={this.state.email}
+            onChange={this.handleChange}
           />
           <Label>Password:</Label>
           <Form.Input 
             type="password"
             name="password"
             placeholder="Enter a password"
-            value={this.state.username}
+            value={this.state.password}
+            onChange={this.handleChange}
           />
           <Button type="Submit">Log In</Button>
         </Form>
