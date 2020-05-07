@@ -22,12 +22,9 @@ export default class MovieContainer extends Component {
   getMovies = async () => {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/movies/"
-      console.log("about to fetch data from:");
-      console.log(url);
       const moviesResponse = await fetch(url, {
         credentials: 'include'
       })
-      console.log(moviesResponse)
       const moviesJson = await moviesResponse.json()
       this.setState({
         movies: moviesJson
@@ -70,6 +67,7 @@ export default class MovieContainer extends Component {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/movies/"
       const createMovieResponse = await fetch(url, {
+        credentials: 'include',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -82,7 +80,6 @@ export default class MovieContainer extends Component {
         movies.push(createMovieJson.data)
         this.setState( {movies: movies} )
       }
-
     } catch(err) {
       console.error("Error adding movie")
       console.error(err)

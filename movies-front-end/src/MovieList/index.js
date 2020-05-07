@@ -3,8 +3,6 @@ import { Card, Button } from 'semantic-ui-react'
 
 export default function MovieList(props) {
 
-  // console.log("props in MoviesList");
-  // console.log(props);
   const movies = props.movies.map(movie => {
     return(
 

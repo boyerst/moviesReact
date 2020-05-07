@@ -22,9 +22,9 @@ export default class NewMovieForm extends Component {
     event.preventDefault()
     this.props.createMovie(this.state)
     this.setState = ({
-      title: '',
-      genre: '',
-      release_year: ''
+        title: '',
+        genre: '',
+        release_year: ''
     })
   }
 

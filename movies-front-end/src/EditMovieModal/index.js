@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button, Label, Segment } from 'semantic-ui-react'
+import '../index.css'
 
 export default class EditMovieModal extends Component {
   constructor(props) {
